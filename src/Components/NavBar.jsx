@@ -6,17 +6,26 @@ import { lightBlue } from '@mui/material/colors';
 import '../App.css';
 
 const NavBar = () => {
+
+  const categorias = [
+    {id : 0, nombre : 'Categoría 1'},
+    {id : 1, nombre : 'Categoría 2'},
+    {id : 2, nombre : 'Categoría 3'}
+  ]
+
   return (
     <header style = {styles.appHeader}>
       <img src={logo} style = {styles.appLogo} alt = "logo" />
       <h1 style = {styles.h1}>E-Commerce</h1>
-      <nav>
-         <a style = {styles.links} className = 'button-categoria' href='#'>Categoría 1</a>
-         <a style = {styles.links} className = 'button-categoria' href='#'>Categoría 2</a>
-         <a style = {styles.links} className = 'button-categoria' href='#'>Categoría 3</a>
-      </nav>
       <ShoppingCartOutlinedIcon sx={{ color: lightBlue[300] }} fontSize="large"/>
-      <MenuOpenOutlinedIcon className = 'nav-desplegable' sx={{ color: lightBlue[300] }} fontSize="large"/>
+      <nav>
+        {
+          categorias.map ((categoria) => {
+              return <a  key = {categoria.id} style = {styles.links} className = 'button-categoria' href='#'>{categoria.nombre}</a>
+          })
+        }
+        <MenuOpenOutlinedIcon style = {styles.navDesplegable} className ='nav-desplegable' sx={{ color: lightBlue[300] }} fontSize="large"/>
+      </nav>
     </header>
   )
 }
@@ -40,13 +49,16 @@ const styles = {
         color : 'white',
     },
     appLogo : {
-        width : '10%',
+        width : '8%',
     },
     links : {
         color : 'white',
         textDecoration : 'none',
         width : 'max-content',
         padding: 10,
+    },
+    navDesplegable : {
+        display : 'none',
     },
 }
 
