@@ -7,6 +7,8 @@ import CartWidget from './CartWidget';
 
 const NavBar = () => {
 
+  const cantElementos = 0;
+
   const categorias = [
     {id : 0, nombre : 'Categoría 1'},
     {id : 1, nombre : 'Categoría 2'},
@@ -26,7 +28,7 @@ const NavBar = () => {
         }
         <MenuOpenOutlinedIcon style = {styles.navDesplegable} className ='nav-desplegable' sx={{ color: lightBlue[300] }} fontSize="large"/>
       </nav>
-      <CartWidget />
+      <CartWidget cantElementos = {cantElementos}/>
     </header>
   )
 }
