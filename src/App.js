@@ -4,7 +4,7 @@ import NavBar from "./Components/NavBar";
 
 function App() {
 
-  const dash = 'Greetings Stranger. Bienvenido a E-Commerce.com';
+  const dash = 'Bienvenido a E-Commerce.com';
 
   return (
     <>
