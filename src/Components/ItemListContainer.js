@@ -6,25 +6,20 @@ import Progress from './Progress';
 
 const ItemListContainer = ({greeting}) => {
 
-  const initialProducts = [
-    {id:0, name: 'Manzanas', stock: 2, price: 100},
-    {id:1, name: 'Naranja', stock: 2, price: 50},
-    {id:2, name: 'Banana', stock: 2, price: 120},
-    {id:3, name: 'Durazno', stock: 2, price: 150}
-  ]
-
-const promesa = new Promise ((res,rej) => {
+/* const promesa = new Promise ((res,rej) => {
     setTimeout(() => {
       res (initialProducts);
     }, 2000);
   })
-
+ */
 const [products, setProducts] = useState([])
 
 useEffect(() => {
-promesa
 
+fetch("https://fakestoreapi.com/products?limit=8")
+.then(response => response.json())
   .then((data) => {
+    console.log(data);
     setProducts(data);    
   }).catch(() => {
     console.log('No se cargó nada.');
@@ -51,6 +46,7 @@ const styles = {
         color : 'black',
         padding : 100,
         fontSize : 40,
+        textAlign: 'center',
     }
 }
 

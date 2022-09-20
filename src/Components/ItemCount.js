@@ -29,13 +29,12 @@ const ItemCount = ({stock, initial, funcion, addCarrito}) => {
 
   return (
     <>
-        <div>ItemCount</div>
-        
+
         <ButtonGroup variant="contained" aria-label="outlined button group">
             <Button onClick = {restar}>Restar</Button>
             <Button variant = "text">{contador}</Button>
             <Button onClick = {sumar}>Sumar</Button>
-            <Button onClick = {onAdd}>On Add</Button>
+{/*             <Button onClick = {onAdd}>On Add</Button> */}
             <Button onClick = {resetear}>Resetear</Button>
         </ButtonGroup>
     </>
