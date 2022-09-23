@@ -2,47 +2,57 @@ import {React,useState,useEffect} from 'react'
 import ItemCount from './ItemCount';
 import ItemList from './ItemList';
 import Progress from './Progress';
-
+import { useParams } from 'react-router-dom';
 
 const ItemListContainer = ({greeting}) => {
 
-/* const promesa = new Promise ((res,rej) => {
-    setTimeout(() => {
-      res (initialProducts);
-    }, 2000);
-  })
- */
-const [products, setProducts] = useState([])
+  let { nombreCategoria } = useParams();
+
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+
+  const URL_BASE = 'https://fakestoreapi.com/products';
+  const URL_CATEGORIA = 'https://fakestoreapi.com/products/category/';
+
 
 useEffect(() => {
 
-fetch("https://fakestoreapi.com/products?limit=8")
-.then(response => response.json())
-  .then((data) => {
-    console.log(data);
-    setProducts(data);    
-  }).catch(() => {
-    console.log('No se cargó nada.');
-  })
-}, [])
+  const getProductos = async () => {
+    const home = nombreCategoria ? `${URL_CATEGORIA}${nombreCategoria}` : (URL_BASE)
+    
+    try {
+      const response = await fetch (home);
+      const data = await response.json();
+      setProducts(data);    
+    }
+    catch(err){
+      console.log('No se cargó nada.');
+      setError(true);
+    }
+    finally{
+      setLoading(false);
+    }
+  }
+  getProductos();
+}, [nombreCategoria])
 
   const onAdd = (count) => {
     console.log(`Se agregaron ${count} productos`);
   }
 
- /*  onAdd(); */
+
 
   return (
     <>
-      <h4 style = {styles.h4}>{greeting}</h4>
-{/*       <ItemCount stock = {10} initial = {1} funcion = {onAdd} /> */}
-      {products.length === 0 ? <Progress /> : <ItemList productos = {products}/>}
+      <h1 style = {styles.h1}>{greeting}</h1>
+      {loading ? <Progress /> : <ItemList productos = {products}/>}
     </>
   )
 }
 
 const styles = {
-    h4 : {
+    h1 : {
         color : 'black',
         padding : 100,
         fontSize : 40,

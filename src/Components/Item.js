@@ -5,58 +5,58 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import { maxWidth } from '@mui/system';
+import { Link } from 'react-router-dom';
 
 const Item = ({prod}) => {
 
   return (
     <>
-      <div className = 'column' style={styles.column} >
-      <Card className = 'card' style={styles.card}>
+      <Card style={styles.card}>
         <CardActionArea>
           <CardMedia
             component="img"
-            height="200"
+            height="140"
             image={prod.image}
             alt={prod.title}
             />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography gutterBottom variant="body1" component="div" style={styles.title}>
               {prod.title}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {/* {prod.description} */}
-            </Typography>
-            <Typography variant="h4" color="div">
+            <Typography variant="h6" color="div">
               ${prod.price}
             </Typography>
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
-            Ver más
-          </Button>
+          <Link to={`/producto/${prod.id}`}>
+            <Button size="small" color="primary">
+              Ver más
+            </Button>
+          </Link>
         </CardActions>
       </Card>
-      </div>
-  </>
+    </>
   )
 }
 
 const styles = {
-/*   column: {
-    float: 'left',
-    width: '25%',
+
+  card: {
+    maxWidth: 325,
+    width: window.innerWidth > 500 ? '25%' : '100%',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    backgroundColor: '#dbadc4',
     padding: '10px 10px',
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(230px, 1fr))',
-    gridGap: '20px',
-  }, */
-/*   card: {
-    maxWidth: 200,
-    height: 500,
-    display: 'grid',
-    gridTemplateRows: 'max-content 1fr',
-  }, */
+    margin: window.innerWidth > 500 ? 5 : 20,
+  }, 
+  title: {
+    height: 50,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  }
+  
 }
       
 export default Item

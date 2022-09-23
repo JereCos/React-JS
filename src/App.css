@@ -6,100 +6,12 @@
   text-align: center;
 }
 
-
-/* .App-logo {
-  height: 40vmin;
-  pointer-events: none;
-} */
-
-/* @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-} */
-
-/* .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-} */
-
-/* @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
-
-.appHeader {
-  margin : 0;
-  box-sizing: border-box;
-  font-family: sans-seriff;
-  background-color:#500050;
-  display : flex;
-  position : relative;
-  width : 100%;
-  height : 80;
-  top : 0;
-  left : 0;
-  justify-content : space-between;
-  align-items: center;
-}
-
-.nav-desplegable {
-  display: none;
-  color: lightskyblue;
+.active {
+  background-color: #dbadc4;
 }
 
 .button-categoria:hover{
   background-color: #dbadc4;
   transition: 0.5s;
   border-radius: 3px;
-}
-
-.row {
-  margin: 0 -5px;
-}
-
-.row::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.column {
-  float: left;
-  width: 25%;
-  padding: 0 10px;
-}
-
-.card {
-  max-width: 200;
-  height: 500px;
-  display: grid;
-  grid-template-rows: max-content;
-  text-align: center;
-}
-
-@media screen and (max-width: 568px) {
-  .nav-desplegable {
-    background-color: black;
-    display: block;
-  }
-  .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-  }
 }

@@ -1,28 +1,45 @@
-import React from 'react';
-import {ItemDetail} from './ItemDetail';
-import { useState, useEffect } from 'react';
+import {React, useState, useEffect} from 'react';
+import ItemDetail from './ItemDetail';
 import Progress from './Progress';
+import { useParams } from 'react-router-dom';
 
 
 const ItemDetailContainer = () => {
 
-    const [producto, setProducto] = useState ([])
+    let { idProducto } = useParams();
+
+    const [producto, setProducto] = useState ({})
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(false)
+
+    const URL_PRODUCTO = 'https://fakestoreapi.com/products/';
 
     useEffect(() => {
-      fetch('https://fakestoreapi.com/products/4')
-      .then(response => response.json())
-      .then(data => {
-        setProducto(data);
-/*         console.log(data); */
-      })
-      .catch(()=>{
-        console.log('Nada trajo');
-      })
-    }, [])
+
+      const getProducto = async () => {
+        
+        const urlProd = idProducto ? `${URL_PRODUCTO}${idProducto}` : <h1>Error al cargar producto</h1>;
+        console.log(urlProd);
+
+        try{
+          const response = await fetch (urlProd);
+          const data = await response.json();
+          setProducto({...data, stock: Math.floor (Math.random()*10)});
+        }
+        catch(err){
+          console.error(`error: ${err}`);
+          setError(true);
+        }
+        finally{
+          setLoading(false);
+        }
+      }   
+      getProducto();
+    }, [idProducto])
 
   return (
     <>
-      {producto.length === 0 ? <Progress /> : <ItemDetail produc = {producto}/>}
+      {loading ? <Progress /> : <ItemDetail produc = {producto}/>}
     </>
   )
 }

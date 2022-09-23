@@ -4,43 +4,57 @@ import MenuOpenOutlinedIcon from '@mui/icons-material/MenuOpenOutlined';
 import { lightBlue } from '@mui/material/colors';
 import CartWidget from './CartWidget';
 import { useEffect, useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
 const NavBar = () => {
 
   const cantElementos = 0;
 
   const [categorias, setCategorias] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
-    fetch('https://fakestoreapi.com/products/categories')
-    .then(response=>response.json())
-    .then(data=>{
+    const getCategorias = async () => {
+      try{
+        const response = await fetch ('https://fakestoreapi.com/products/categories');
+        const data = await response.json();
         setCategorias(data);
-      })
-      .catch(()=>{
-      console.log('Nada cargado');
-    })
+      }
+      catch(err){
+        console.error(err);
+        setError(true);
+      }
+      finally{
+        setLoading(false);
+      }
+    }
+    getCategorias();
   }, [])
   
   return (
     <header className = 'appHeader' style = {styles.appHeader}>
-      <img src={logo} style = {styles.appLogo} alt = "logo" />
+      <Link to = '/'>
+        <img src={logo} style = {styles.appLogo} alt = "logo" />
+      </Link>      
       <h1 style = {styles.h1}>E-Commerce</h1>
       <nav>
         {
           categorias.map ((categoria, i) => {
-              return <a  key = {i} style = {styles.links} className = 'button-categoria' href='#'>{categoria.toUpperCase()}</a>
+              return <NavLink  key = {i} style = {styles.links} className = 'button-categoria' to={`/categoria/${categoria}`}>{categoria.toUpperCase()}</NavLink>
           })
         }
-        <MenuOpenOutlinedIcon style = {styles.navDesplegable} className ='nav-desplegable' fontSize="large"/>
+        <MenuOpenOutlinedIcon sx={{ color: lightBlue[300] }} style = {styles.navDesplegable} className ='nav-desplegable' fontSize="large"/>
       </nav>
-      <CartWidget cantElementos = {cantElementos}/>
+      <Link to = '/cart'>
+        <CartWidget cantElementos = {cantElementos}/>
+      </Link>
     </header>
   )
 }
 
 const styles = {
-/*     appHeader : {
+    appHeader : {
         margin : 0,
         boxSizing : 'border-box',
         fontFamily : 'sans-seriff',
@@ -53,12 +67,12 @@ const styles = {
         left : 0,
         justifyContent : 'space-between',
         alignItems : 'center',
-    }, */
+    },
     h1 : {
         color : 'white',
     },
     appLogo : {
-        width : '8%',
+        width : '20%',
     },
     links : {
         color : 'white',
@@ -66,9 +80,9 @@ const styles = {
         width : 'max-content',
         padding: 10,
     },
-/*     navDesplegable : {
-        display : 'none',
-    }, */
+    navDesplegable : {
+        display : window.innerWidth > 500 ? 'none' : 'block',
+    },
 }
 
 export default NavBar
