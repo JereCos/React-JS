@@ -37,12 +37,6 @@ useEffect(() => {
   getProductos();
 }, [nombreCategoria])
 
-  const onAdd = (count) => {
-    console.log(`Se agregaron ${count} productos`);
-  }
-
-
-
   return (
     <>
       <h1 style = {styles.h1}>{greeting}</h1>
