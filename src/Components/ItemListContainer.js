@@ -1,5 +1,4 @@
 import {React,useState,useEffect} from 'react'
-import ItemCount from './ItemCount';
 import ItemList from './ItemList';
 import Progress from './Progress';
 import { useParams } from 'react-router-dom';

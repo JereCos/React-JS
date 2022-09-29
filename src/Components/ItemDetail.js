@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ItemCount from './ItemCount';
@@ -12,9 +12,6 @@ const ItemDetail = ({produc}) => {
   const onAdd = (finalizar) => {
     setFinaliza(finalizar);
   }
-   
-  
-  console.log("Finaliza compra? ",finaliza);
   
   return (
     <>
@@ -22,10 +19,10 @@ const ItemDetail = ({produc}) => {
         <img style = {styles.img} src={produc.image} alt={produc.title} />
         <div style = {styles.infoContainer}>
           <h1>{produc.title}</h1>
-          <p>{produc.description}</p>
           <Typography gutterBottom variant='h4' component='div'>
             ${produc.price}
           </Typography>
+          <p>{produc.description}</p>
           {finaliza ?
             <Link to='/cart'>
               <Button variant="contained" aria-label="outlined button group">Finalizar Compra</Button>
