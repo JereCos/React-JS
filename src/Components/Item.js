@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-const Item = ({prod}) => {
+const Item = ({ prod }) => {
 
   return (
     <>
@@ -17,7 +17,7 @@ const Item = ({prod}) => {
             height="140"
             image={prod.image}
             alt={prod.title}
-            />
+          />
           <CardContent>
             <Typography gutterBottom variant="body1" component="div" style={styles.title}>
               {prod.title}
@@ -49,13 +49,13 @@ const styles = {
     backgroundColor: '#dbadc4',
     padding: '10px 10px',
     margin: window.innerWidth > 500 ? 5 : 20,
-  }, 
+  },
   title: {
     height: 50,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   }
-  
+
 }
-      
+
 export default Item

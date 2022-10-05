@@ -1,23 +1,26 @@
-import React, {useState} from 'react'
+import React, { useState, useContext } from 'react'
 import { Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ItemCount from './ItemCount';
 import Button from '@mui/material/Button';
+import { Context } from './CartContext';
 
-const ItemDetail = ({produc}) => {
+const ItemDetail = ({ produc }) => {
 
   const [finaliza, setFinaliza] = useState(false);
-  
- 
-  const onAdd = (finalizar) => {
-    setFinaliza(finalizar);
+  const { addItem } = useContext(Context);
+
+
+  const onAdd = (contador) => {
+    setFinaliza(true);
+    addItem(produc, contador)
   }
-  
+
   return (
     <>
-      <div style = {styles.container}>
-        <img style = {styles.img} src={produc.image} alt={produc.title} />
-        <div style = {styles.infoContainer}>
+      <div style={styles.container}>
+        <img style={styles.img} src={produc.image} alt={produc.title} />
+        <div style={styles.infoContainer}>
           <h1>{produc.title}</h1>
           <Typography gutterBottom variant='h4' component='div'>
             ${produc.price}
@@ -28,7 +31,7 @@ const ItemDetail = ({produc}) => {
               <Button variant="contained" aria-label="outlined button group">Finalizar Compra</Button>
             </Link>
             :
-            <ItemCount stock={produc.stock} initial = {1} funcion={onAdd}/>
+            <ItemCount stock={produc.stock} initial={1} funcion={onAdd} />
           }
         </div>
       </div>
@@ -37,7 +40,7 @@ const ItemDetail = ({produc}) => {
 }
 
 const styles = {
-  container:{
+  container: {
     display: 'flex',
     flexDirection: window.innerWidth > 500 ? 'row' : 'column',
     alignItems: 'center'
@@ -46,7 +49,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column'
   },
-  img:{
+  img: {
     maxWidth: '35%',
     backgroundColor: '#dbadc4',
     padding: '10px 10px'

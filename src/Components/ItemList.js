@@ -1,16 +1,16 @@
 import React from 'react';
 import Item from './Item';
 
-const ItemList = ({productos}) => {
+const ItemList = ({ productos }) => {
 
   return (
-  <>
-    <div className='row' style={styles.row}>
-      {productos.map(producto => <Item key={`${producto.name}_${producto.id}`} prod = {producto}/>)}
-    </div>
-  </>  
+    <>
+      <div className='row' style={styles.row}>
+        {productos.map(producto => <Item key={`${producto.name}_${producto.id}`} prod={producto} />)}
+      </div>
+    </>
 
-);
+  );
 }
 
 const styles = {
