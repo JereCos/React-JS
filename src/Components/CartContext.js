@@ -6,6 +6,7 @@ const CartContext = ({ children }) => {
 
   const [cart, setCart] = useState([])
   const [quantity, setQuantity] = useState(0)
+  const [total, setTotal] = useState(0)
 
   const addItem = (item, qty) => {
     if (isInCart(item.id)) {
@@ -14,6 +15,7 @@ const CartContext = ({ children }) => {
           return {
             item: producto.item,
             qty: producto.qty + qty,
+            total: producto.qty * producto.price
           }
         }
         return producto;
@@ -22,7 +24,7 @@ const CartContext = ({ children }) => {
       setCart([...cart, { item, qty }])
     }
     setQuantity(quantity + qty);
-    console.log('Este método agrega ítems al carro');
+    setTotal(total + (qty * item.price))
   }
 
   const removeItem = (id) => {
@@ -37,6 +39,7 @@ const CartContext = ({ children }) => {
   const clearAll = () => {
     setCart([]);
     setQuantity(0);
+    setTotal(0);
   }
 
   const isInCart = (id) => cart.some((producto) => producto.item.id === id);
@@ -46,6 +49,7 @@ const CartContext = ({ children }) => {
       value={{
         cart,
         quantity,
+        total,
         addItem,
         removeItem,
         clearAll,

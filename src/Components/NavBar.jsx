@@ -9,7 +9,7 @@ import { Context } from './CartContext';
 
 const NavBar = () => {
 
-  const { cart } = useContext(Context)
+  const { quantity } = useContext(Context)
 
   const [categorias, setCategorias] = useState([])
   const [loading, setLoading] = useState(true)
@@ -48,7 +48,7 @@ const NavBar = () => {
         <MenuOpenOutlinedIcon sx={{ color: lightBlue[300] }} style={styles.navDesplegable} className='nav-desplegable' fontSize="large" />
       </nav>
       <Link to='/cart'>
-        <CartWidget cantElementos={cart.length} />
+        <CartWidget cantElementos={quantity} />
       </Link>
     </header>
   )

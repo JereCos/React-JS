@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 
 export const Cart = () => {
 
-  const { removeItem, clearAll, cart } = useContext(Context);
+  const { removeItem, clearAll, cart, total } = useContext(Context);
 
   return (
     <>
@@ -15,9 +15,11 @@ export const Cart = () => {
             <>
               <div key={item.item.id} style={styles.container}>
                 <img src={item.item.image} style={styles.img} />
-                <h2>{item.item.title}</h2>
-                <h2>Precio unitario: {item.item.price}</h2>
-                <h2>Cantidad: {item.qty}</h2>
+                <span>
+                  <h2>{item.item.title}</h2>
+                  <h3>Precio unitario: ${item.item.price}</h3>
+                  <h3>Cantidad: {item.qty}</h3>
+                </span>
                 <Button
                   onClick={() => { removeItem(item.item.id) }}
                   variant="contained" aria-label="outlined button group"
@@ -28,6 +30,7 @@ export const Cart = () => {
             </>
           ))
           }
+          <h3>Total: ${total}</h3>
           <Button
             onClick={() => { clearAll() }}
             variant="contained" aria-label="outlined button group"
