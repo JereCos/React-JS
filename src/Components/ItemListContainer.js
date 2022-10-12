@@ -2,6 +2,8 @@ import { React, useState, useEffect } from 'react'
 import ItemList from './ItemList';
 import Progress from './Progress';
 import { useParams } from 'react-router-dom';
+import { db } from '../Firebase/firebase';
+import { getDocs, collection, query, where } from 'firebase/firestore';
 
 const ItemListContainer = ({ greeting }) => {
 
@@ -11,19 +13,26 @@ const ItemListContainer = ({ greeting }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
-  const URL_BASE = 'https://fakestoreapi.com/products';
-  const URL_CATEGORIA = 'https://fakestoreapi.com/products/category/';
-
-
   useEffect(() => {
 
+    const productsCollection = collection(db, 'ProductsList');
+
     const getProductos = async () => {
-      const home = nombreCategoria ? `${URL_CATEGORIA}${nombreCategoria}` : (URL_BASE)
 
       try {
-        const response = await fetch(home);
-        const data = await response.json();
-        setProducts(data);
+        const q = query(productsCollection, where('category', '==', `${nombreCategoria}`))
+        const data = await getDocs(productsCollection)
+        const mostrarProductos = nombreCategoria ? (
+          await getDocs(q)
+        ) : data;
+
+        const list = mostrarProductos.docs.map((product) => {
+          return {
+            ...product.data(),
+            id: product.id
+          }
+        })
+        setProducts(list);
       }
       catch (err) {
         console.log('No se cargó nada.');
@@ -39,7 +48,14 @@ const ItemListContainer = ({ greeting }) => {
   return (
     <>
       <h1 style={styles.h1}>{greeting}</h1>
-      {loading ? <Progress /> : <ItemList productos={products} />}
+      {loading ? (
+        <Progress />
+      ) : error ? (
+        <h1>Ocurrio un error</h1>
+      ) : (
+        <ItemList productos={products} />
+      )
+      }
     </>
   )
 }

@@ -2,6 +2,8 @@ import { React, useState, useEffect } from 'react';
 import ItemDetail from './ItemDetail';
 import Progress from './Progress';
 import { useParams } from 'react-router-dom';
+import { db } from '../Firebase/firebase';
+import { doc, getDoc, collection } from 'firebase/firestore';
 
 
 const ItemDetailContainer = () => {
@@ -12,19 +14,18 @@ const ItemDetailContainer = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
-  const URL_PRODUCTO = 'https://fakestoreapi.com/products/';
-
   useEffect(() => {
 
+    const productsCollection = collection(db, 'ProductsList');
+
     const getProducto = async () => {
-
-      const urlProd = idProducto ? `${URL_PRODUCTO}${idProducto}` : <h1>Error al cargar producto</h1>;
-      console.log(urlProd);
-
       try {
-        const response = await fetch(urlProd);
-        const data = await response.json();
-        setProducto({ ...data, stock: Math.floor(Math.random() * 10) });
+        const refDoc = doc(productsCollection, idProducto);
+        const data = await getDoc(refDoc)
+        setProducto({
+          ...data.data(),
+          id: data.idProducto
+        });
       }
       catch (err) {
         console.error(`error: ${err}`);
@@ -39,7 +40,14 @@ const ItemDetailContainer = () => {
 
   return (
     <>
-      {loading ? <Progress /> : <ItemDetail produc={producto} />}
+      {loading ? (
+        <Progress />
+      ) : error ? (
+        <h1>Ocurrio un error</h1>
+      ) : (
+        <ItemDetail produc={producto} />
+      )
+      }
     </>
   )
 }
