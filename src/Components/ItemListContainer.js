@@ -16,16 +16,17 @@ const ItemListContainer = ({ greeting }) => {
   useEffect(() => {
 
     const productsCollection = collection(db, 'ProductsList');
+    const q = query(productsCollection, where('category', '==', `${nombreCategoria}`))
 
     const getProductos = async () => {
 
       try {
-        const q = query(productsCollection, where('category', '==', `${nombreCategoria}`))
         const data = await getDocs(productsCollection)
         const mostrarProductos = nombreCategoria ? (
           await getDocs(q)
         ) : data;
 
+        console.log(mostrarProductos);
         const list = mostrarProductos.docs.map((product) => {
           return {
             ...product.data(),

@@ -20,11 +20,11 @@ const ItemDetailContainer = () => {
 
     const getProducto = async () => {
       try {
-        const refDoc = doc(productsCollection, idProducto);
+        const refDoc = await doc(productsCollection, idProducto);
         const data = await getDoc(refDoc)
         setProducto({
+          id: data.id,
           ...data.data(),
-          id: data.idProducto
         });
       }
       catch (err) {
@@ -45,7 +45,7 @@ const ItemDetailContainer = () => {
       ) : error ? (
         <h1>Ocurrio un error</h1>
       ) : (
-        <ItemDetail produc={producto} />
+        <ItemDetail key={idProducto} produc={producto} />
       )
       }
     </>

@@ -11,4 +11,4 @@ El proyecto va cumpliendo con cada etapa de los desafíos planteados durante el 
 
 ### `Dependencias npm agregadas`
 
-No se utilizaron dependencias extras salvo por [Material Icons](https://mui.com/material-ui/material-icons/) y [react-router-dom](https://www.npmjs.com/package/react-router-dom).
+No se utilizaron dependencias extras salvo por [Material Icons](https://mui.com/material-ui/material-icons/) y [react-router-dom](https://www.npmjs.com/package/react-router-dom). Tambien se agregó [Sweet Alert](https://sweetalert2.github.io/#download)
