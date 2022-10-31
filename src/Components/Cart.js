@@ -5,15 +5,16 @@ import Button from '@mui/material/Button';
 import { db } from '../Firebase/firebase';
 import { collection, addDoc, serverTimestamp, doc, updateDoc } from 'firebase/firestore'
 import Swal from 'sweetalert2';
+import Form from './Form';
 
 export const Cart = () => {
 
   const { removeItem, clearAll, cart, total } = useContext(Context);
 
   const buyer = {
-    name: 'Jeremías',
-    phone: '3516213366',
-    mail: 'jeremias.costamagna@gmail.com'
+    name: '',
+    phone: '',
+    mail: ''
   };
 
   const finalizarCompra = () => {
@@ -54,8 +55,6 @@ export const Cart = () => {
     updateDoc(updateStock, { stock: (producto.item.stock - producto.qty) });
   }
 
-
-
   return (
     <>
       {cart.length !== 0 ? (
@@ -86,8 +85,15 @@ export const Cart = () => {
           >
             Vaciar Carrito
           </Button>
+          <Form />
           <Button
-            onClick={() => { finalizarCompra() }}
+            onClick={() => {
+              finalizarCompra(
+                buyer.name = document.getElementById('filled-nombre').value,
+                buyer.mail = document.getElementById('filled-mail').value,
+                buyer.phone = document.getElementById('filled-number').value,
+              )
+            }}
             variant="contained" aria-label="outlined button group"
           >
             Finalizar Compra

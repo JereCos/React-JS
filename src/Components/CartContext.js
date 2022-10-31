@@ -33,7 +33,6 @@ const CartContext = ({ children }) => {
     })
 
     setCart(productoBorrado);
-    console.log('Este método elimina ítems del carro');
   }
 
   const clearAll = () => {
