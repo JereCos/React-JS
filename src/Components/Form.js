@@ -41,15 +41,23 @@ const Form = () => {
                     id="filled-number"
                     label="Numero de telefono"
                     type="number"
-/*                     InputLabelProps={{
-                        shrink: true,
-                    }} */
+                    /*                     InputLabelProps={{
+                                            shrink: true,
+                                        }} */
                     variant="filled"
                 />
                 <TextField
                     required
                     id="filled-mail"
                     label="Mail"
+                    defaultValue=""
+                    helperText="alguien@dominio"
+                    variant="filled"
+                />
+                <TextField
+                    required
+                    id="filled-mailverification"
+                    label="Verificar Mail"
                     defaultValue=""
                     helperText="alguien@dominio"
                     variant="filled"
